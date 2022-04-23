@@ -1,5 +1,5 @@
 import React from "react";
-import { Table } from "semantic-ui-react";
+import { Table,Icon } from "semantic-ui-react";
  
 const TableDetails = (props) => {
   const {apiData,updateRow} = props;
@@ -27,7 +27,9 @@ const TableDetails = (props) => {
                       <Table.Cell>{data[1]}</Table.Cell>
                       <Table.Cell>{data[2]}</Table.Cell>
                       <Table.Cell>{data[3]}</Table.Cell>
-                      <Table.Cell onClick={()=>updateRow(index+1)}>update</Table.Cell>
+                      <Table.Cell onClick={()=>updateRow(index+1)}>
+                      <Icon enabled name='edit outline' />
+                      </Table.Cell>
                     </Table.Row>
                   </>
                 );
