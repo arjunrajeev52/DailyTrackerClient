@@ -1,8 +1,9 @@
-import React from 'react'
-import { Button, Icon, Modal } from 'semantic-ui-react'
+import React from 'react';
+import TrackerForm from './TackerForm';
+import {  Modal } from 'semantic-ui-react';
 
 const ModalForm = (props) => {
-  const { open, size,setTrackerData } = props;
+  const { open, size,trackerData,setTrackerData,handleSubmit,handleUpdate } = props;
 
   return (
     <>
@@ -11,20 +12,12 @@ const ModalForm = (props) => {
       <Modal
         size={size}
         open={open}
-        onClose={() => setTrackerData((e) => ({ ...e, showModal: false }))}
+        onClose={() => setTrackerData((e) => ({ ...e, showForm: false }))}
       >
-        <Modal.Header>Delete Your Account</Modal.Header>
+        <Modal.Header>Create Your Entry</Modal.Header>
         <Modal.Content>
-          <p>Are you sure you want to delete your account</p>
+        {trackerData.showForm && <TrackerForm trackerData={trackerData} setTrackerData={setTrackerData} handleSubmit={handleSubmit} handleUpdate={handleUpdate} />}
         </Modal.Content>
-        <Modal.Actions>
-          <Button negative onClick={() => setTrackerData((e) => ({ ...e, showModal: false }))}>
-            No
-          </Button>
-          <Button positive onClick={() => setTrackerData((e) => ({ ...e, showModal: false }))}>
-            Yes
-          </Button>
-        </Modal.Actions>
       </Modal>
     </>
   )

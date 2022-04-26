@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Form } from "semantic-ui-react";
+import { Button, Form,Select ,Radio} from "semantic-ui-react";
 
 const TrackerForm =(props)=>{
     const {trackerData,setTrackerData,handleSubmit,handleUpdate} = props;
@@ -8,37 +8,58 @@ const TrackerForm =(props)=>{
         <>
       <Form className="form">
         <Form.Field>
-          <label>Name</label>
+          <label>Date</label>
           <input
-            placeholder="Enter your Name"
-            onChange={(e) => setTrackerData((ev) => ({ ...ev, name: e.target.value }))}
-            value={trackerData.name}
+            placeholder="Enter your date"
+            onChange={(e) => setTrackerData((ev) => ({ ...ev, date: e.target.value }))}
+            value={trackerData.date}
+            type="date"
           />
         </Form.Field>
         <Form.Field>
-          <label>Age</label>
+          <label>Item</label>
           <input
-            placeholder="Enter your Age"
-            onChange={(e) => setTrackerData((ev) => ({ ...ev, age: e.target.value }))}
-            value={trackerData.age}
+            placeholder="Enter your item"
+            onChange={(e) => setTrackerData((ev) => ({ ...ev, item: e.target.value }))}
+            value={trackerData.item}
           />
         </Form.Field>
         <Form.Field>
-          <label>Salary</label>
-          <input
-            placeholder="Enter your Salary"
-            onChange={(e) => setTrackerData((ev) => ({ ...ev, salary: e.target.value }))}
-            value={trackerData.salary}
+          {/* <label>Income</label> */}
+          <Radio
+            label='Income'
+            name='radioGroup'
+            checked={trackerData.toggleIncome}
+            onChange={(e) => setTrackerData((ev) => ({ ...ev, toggleIncome: true }))}
+          />
+          &nbsp;
+          &nbsp;
+          <Radio
+            label='Expense'
+            name='radioGroup'
+            checked={!trackerData.toggleIncome}
+            onChange={(e) => setTrackerData((ev) => ({ ...ev, toggleIncome: false }))}
           />
         </Form.Field>
         <Form.Field>
-          <label>Hobby</label>
-          <input
-            placeholder="Enter your Hobby"
-            onChange={(e) => setTrackerData((ev) => ({ ...ev, hobby: e.target.value }))}
-            value={trackerData.hobby}
-          />
+           {trackerData.toggleIncome?<input
+            placeholder="Enter your income"
+            onChange={(e) => setTrackerData((ev) => ({ ...ev, income: e.target.value }))}
+            value={trackerData.income}
+          />:<input
+          placeholder="Enter your expense"
+          onChange={(e) => setTrackerData((ev) => ({ ...ev, expense: e.target.value }))}
+          value={trackerData.expense}
+        />}
         </Form.Field>
+        <Form.Field
+            control={Select}
+            label='Account Type'
+            options={trackerData.AccountOptions}
+            placeholder='Choose your type of account'
+            onChange={(e,{value}) => setTrackerData((ev) => ({ ...ev, accounttype: value }))}
+            value={trackerData.accounttype}
+          />
  
         {/* {trackerData.type?<Button color="blue" type="submit" onClick={handleSubmit}>
           Submit
