@@ -4,6 +4,9 @@ import axios from "axios";
 import "./App.css";
 import TableDetails from './components/TableDetails';
 import ModalForm from "./components/ModalForm";
+import LoginForm from './components/Login';
+import TopNav from './components/TopNav';
+import {Tracker_Url} from './constant';
 
 const TrackerData = {
   date: '',
@@ -26,7 +29,11 @@ const TrackerData = {
     { key: 'c', text: 'Cash', value: 'Cash' },
   ],
   toggleIncome: true,
-  loaderFlag: false
+  loaderFlag: false,
+  showLoginPage:true,
+  user:'',
+  pass:'',
+  loginStatus:true
 }
 
 function App() {
@@ -43,7 +50,7 @@ function App() {
 
     axios
       .post(
-        "https://daily-tracker-project.herokuapp.com/Posts/",
+        `${Tracker_Url.Server_url}/Posts/`,
         dataObj
       )
       .then((response) => {
@@ -65,7 +72,7 @@ function App() {
     setTrackerData((e) => ({ ...e, loaderFlag: true }));
     axios
       .put(
-        `https://daily-tracker-project.herokuapp.com/Posts/Sheet1!A${trackerData.row}:E${trackerData.row}`,
+        `${Tracker_Url.Server_url}/Posts/Sheet1!A${trackerData.row}:E${trackerData.row}`,
         dataObj
       )
       .then((response) => {
@@ -97,7 +104,7 @@ function App() {
   // const deleteRow = (rowNumber)=>{
   // axios
   //     .delete(
-  //       `https://daily-tracker-project.herokuapp.com/Posts/Sheet1!A${rowNumber}:B${rowNumber}`
+  //       `http://localhost:5000/Posts/Sheet1!A${rowNumber}:B${rowNumber}`
   //     )
   //     .then((response) => {
   //       setDataRefresh(response)
@@ -127,7 +134,10 @@ function App() {
   useEffect(() => {
     setTrackerData((e) => ({ ...e, loaderFlag: true }));
     axios
-      .get("https://daily-tracker-project.herokuapp.com/Posts")
+      .get(`${Tracker_Url.Server_url}/Posts`,{
+        params: {
+          sheet: 'Sheet1'
+        }})
       .then((readData) => {
         readData.data.shift();
         setTrackerData((e) => ({ ...e, apiData: readData.data }));
@@ -142,6 +152,10 @@ function App() {
         <Dimmer active={trackerData.loaderFlag}>
           <Loader indeterminate>Preparing Files</Loader>
         </Dimmer>
+        {trackerData.showLoginPage?
+        <LoginForm setTrackerData={setTrackerData} trackerData={trackerData}/>:
+        <>
+        <TopNav setTrackerData={setTrackerData}/>
         <Header as="h2">Daily Tracker</Header>
         {!trackerData.showForm &&
           <Segment basic textAlign='center'>
@@ -164,6 +178,7 @@ function App() {
             />
           </Segment>}
         <TableDetails apiData={getResult(trackerData.apiData)} updateRow={updateRow} />
+        </>}
       </Container>
       <ModalForm open={trackerData.showForm} size='small' trackerData={trackerData} setTrackerData={setTrackerData} handleSubmit={handleSubmit} handleUpdate={handleUpdate} />
     </>
