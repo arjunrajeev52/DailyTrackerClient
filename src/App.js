@@ -141,7 +141,6 @@ function App() {
       .then((readData) => {
         readData.data.shift();
         setTrackerData((e) => ({ ...e, apiData: readData.data }));
-        console.log('APIData', readData.data)
         setTrackerData((e) => ({ ...e, loaderFlag: false }));
       });
   }, [trackerData.dataRefresh]);
