@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Dimmer, Loader, Container, Header, Button, Divider, Input, Segment } from "semantic-ui-react";
+import { Dimmer, Loader, Container, Button, Divider, Input, Segment } from "semantic-ui-react";
 import axios from "axios";
 import "./App.css";
 import TableDetails from './components/TableDetails';
@@ -155,7 +155,6 @@ function App() {
         <LoginForm setTrackerData={setTrackerData} trackerData={trackerData}/>:
         <>
         <TopNav setTrackerData={setTrackerData}/>
-        <Header as="h2">Daily Tracker</Header>
         {!trackerData.showForm &&
           <Segment basic textAlign='center'>
             <Input

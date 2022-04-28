@@ -7,9 +7,9 @@ const TopNav=({setTrackerData})=> {
     return (
       <div>
         <Menu pointing secondary>
-          <Menu.Item
-            name='home'
-          />
+          <Menu.Item>
+          Daily Tracker
+          </Menu.Item>
           <Menu.Menu position='right'>
             <Menu.Item
               name='logout'
