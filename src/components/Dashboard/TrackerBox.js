@@ -12,7 +12,7 @@ const TrackerBox = ({ trackerData, setTrackerData, getResult }) => {
         ({
             ...e, totalExpense: exp, totalIncome: Inc
         }));
-    }, [getResult(trackerData.apiData)]);
+    });
 
     return (
         <>

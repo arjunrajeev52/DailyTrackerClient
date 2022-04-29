@@ -85,7 +85,7 @@ const TableDetails = (props) => {
         readData.data.shift();
         setTrackerData((e) => ({ ...e, apiData: readData.data,loaderFlag: false }));
       });
-  }, [trackerData.dataRefresh]);
+  });
 
   const updateRow = (rowNumber) => {
     const updatedData = trackerData.apiData[rowNumber];
