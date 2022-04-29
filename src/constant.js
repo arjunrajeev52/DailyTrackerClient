@@ -1,4 +1,4 @@
-// https://daily-tracker-project.herokuapp.com
+// http://localhost:5000
 export const Tracker_Url={
-    Server_url:'http://localhost:5000'
+    Server_url:'https://daily-tracker-project.herokuapp.com'
 }
