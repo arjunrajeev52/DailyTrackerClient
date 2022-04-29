@@ -42,14 +42,18 @@ const TrackerForm =(props)=>{
           />
         </Form.Field>
         <Form.Field>
-           {trackerData.toggleIncome?<input
+           {trackerData.toggleIncome?
+           <input
             placeholder="Enter your income"
             onChange={(e) => setTrackerData((ev) => ({ ...ev, income: e.target.value }))}
             value={trackerData.income}
-          />:<input
+            type="number"
+          />:
+          <input
           placeholder="Enter your expense"
           onChange={(e) => setTrackerData((ev) => ({ ...ev, expense: e.target.value }))}
           value={trackerData.expense}
+          type="number"
         />}
         </Form.Field>
         <Form.Field
