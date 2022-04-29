@@ -1,8 +1,9 @@
 import React from "react";
 import axios from "axios";
-import { Table, Icon, Button, Divider, Input, Segment, Container,Menu,Dropdown } from "semantic-ui-react";
+import { Table, Icon, Button, Divider, Input, Segment, Container, Menu, Dropdown } from "semantic-ui-react";
 import ModalForm from "./ModalForm";
 import { Tracker_Url } from '../constant';
+import {sheet1Mapper} from '../mapper/updateMapper'
 
 const TableDetails = (props) => {
   const { setTrackerData, trackerData, getResult } = props;
@@ -19,7 +20,7 @@ const TableDetails = (props) => {
 
   };
 
-  const getTrackerData =()=>{
+  const getTrackerData = () => {
     setTrackerData((e) => ({ ...e, loaderFlag: true }));
     axios
       .get(`${Tracker_Url.Server_url}/Posts`, {
@@ -29,7 +30,7 @@ const TableDetails = (props) => {
       })
       .then((readData) => {
         readData.data.shift();
-        setTrackerData((e) => ({ ...e, apiData: readData.data,loaderFlag: false }));
+        setTrackerData((e) => ({ ...e, apiData: sheet1Mapper(readData.data), loaderFlag: false }));
       });
   };
 
@@ -51,9 +52,9 @@ const TableDetails = (props) => {
       )
       .then((response) => {
         setTrackerData((e) => ({ ...e, dataRefresh: !trackerData.dataRefresh, showForm: false, loaderFlag: false }));
+        getTrackerData();
       });
     setTrackerData((e) => ({ ...e, showForm: false }));
-    getTrackerData();
   };
 
   const handleUpdate = (e) => {
@@ -74,9 +75,9 @@ const TableDetails = (props) => {
       )
       .then((response) => {
         setTrackerData((e) => ({ ...e, dataRefresh: !trackerData.dataRefresh, showForm: false, loaderFlag: false }));
+        getTrackerData();
       });
     setTrackerData((e) => ({ ...e, showForm: false }));
-    getTrackerData();
   };
 
   // const deleteRow = (rowNumber)=>{
@@ -95,19 +96,19 @@ const TableDetails = (props) => {
   }, []);
 
   const updateRow = (rowNumber) => {
-    const updatedData = trackerData.apiData[rowNumber];
+    const updatedData = trackerData.apiData.filter(d=>d.row === rowNumber)[0];
     setTrackerData((e) =>
     ({
       ...e,
       showForm: true,
-      date: updatedData[0],
-      item: updatedData[1],
-      income: updatedData[2],
-      expense: updatedData[3],
-      accounttype: updatedData[4],
+      date: updatedData.date,
+      item: updatedData.item,
+      income: updatedData.income,
+      expense: updatedData.expense,
+      accounttype: updatedData.accountType,
       type: false,
-      row: rowNumber + 2,
-      toggleIncome: updatedData[2] ? true : false
+      row: updatedData.row,
+      toggleIncome: updatedData.income ? true : false
     }));
   };
 
@@ -134,10 +135,10 @@ const TableDetails = (props) => {
           />
         </Segment>}
       <Menu compact position='right'>
-        <Dropdown 
-        text={trackerData.MonthOptions.filter(e=>e.value === trackerData.selectedMonth)[0].text} 
-        options={trackerData.MonthOptions} simple item
-        onChange={(e,{value})=>setTrackerData((ev) => ({ ...ev, selectedMonth: value }))}
+        <Dropdown
+          text={trackerData.MonthOptions.filter(e => e.value === trackerData.selectedMonth)[0].text}
+          options={trackerData.MonthOptions} simple item
+          onChange={(e, { value }) => setTrackerData((ev) => ({ ...ev, selectedMonth: value }))}
         />
       </Menu>
       <Table fixed color='orange' key='orange'>
@@ -156,15 +157,14 @@ const TableDetails = (props) => {
           {getResult(trackerData.apiData).length
             ? getResult(trackerData.apiData).map((data, index) => {
               return (
-                // index !==0 &&
                 <>
                   <Table.Row>
-                    <Table.Cell>{data[0]}</Table.Cell>
-                    <Table.Cell>{data[1]}</Table.Cell>
-                    <Table.Cell>{data[2]}</Table.Cell>
-                    <Table.Cell>{data[3]}</Table.Cell>
-                    <Table.Cell>{data[4]}</Table.Cell>
-                    <Table.Cell onClick={() => updateRow(index)}>
+                    <Table.Cell>{data.date}</Table.Cell>
+                    <Table.Cell>{data.item}</Table.Cell>
+                    <Table.Cell>{data.income}</Table.Cell>
+                    <Table.Cell>{data.expense}</Table.Cell>
+                    <Table.Cell>{data.accountType}</Table.Cell>
+                    <Table.Cell onClick={() => updateRow(data.row)}>
                       <Icon enabled name='edit outline' />
                     </Table.Cell>
                   </Table.Row>

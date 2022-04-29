@@ -15,15 +15,15 @@ const TrackerBox = ({ trackerData, setTrackerData, getResult }) => {
                     <Statistic.Label>Total Request</Statistic.Label>
                 </Statistic>
                 <Statistic color='yellow'>
-                    <Statistic.Value>{getResult(trackerData.apiData).map(d => d[2]).reduce(getSum, 0)}</Statistic.Value>
+                    <Statistic.Value>{getResult(trackerData.apiData).map(d => d.income).reduce(getSum, 0)}</Statistic.Value>
                     <Statistic.Label>Income</Statistic.Label>
                 </Statistic>
                 <Statistic color='orange'>
-                    <Statistic.Value>{getResult(trackerData.apiData).map(d => d[3]).reduce(getSum, 0)}</Statistic.Value>
+                    <Statistic.Value>{getResult(trackerData.apiData).map(d => d.expense).reduce(getSum, 0)}</Statistic.Value>
                     <Statistic.Label>Expense</Statistic.Label>
                 </Statistic>
                 <Statistic color='olive'>
-                    <Statistic.Value>{getResult(trackerData.apiData).map(d => d[2]).reduce(getSum, 0) - getResult(trackerData.apiData).map(d => d[3]).reduce(getSum, 0)}</Statistic.Value>
+                    <Statistic.Value>{getResult(trackerData.apiData).map(d => d.income).reduce(getSum, 0) - getResult(trackerData.apiData).map(d => d.expense).reduce(getSum, 0)}</Statistic.Value>
                     <Statistic.Label>Balance</Statistic.Label>
                 </Statistic>
                 {/* <Statistic color='green'>

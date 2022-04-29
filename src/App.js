@@ -51,11 +51,11 @@ function App() {
   const getResult = (data) => {
     if (!trackerData.searchFlag) {
       return data.filter(d => {
-        return ((new Date(d[0]).getMonth()+1 === trackerData.selectedMonth))
+        return ((new Date(d.date).getMonth()+1 === trackerData.selectedMonth))
       });
     } else {
       return data.filter(d => {
-        return ((d[0].toLowerCase().includes(trackerData.searchValue.toLowerCase()) || d[4].toLowerCase().includes(trackerData.searchValue.toLowerCase()) || d[1].toLowerCase().includes(trackerData.searchValue.toLowerCase())) && (new Date(d[0]).getMonth()+1 === trackerData.selectedMonth))
+        return ((d.date.toLowerCase().includes(trackerData.searchValue.toLowerCase()) || d.accountType.toLowerCase().includes(trackerData.searchValue.toLowerCase()) || d.item.toLowerCase().includes(trackerData.searchValue.toLowerCase())) && (new Date(d.date).getMonth()+1 === trackerData.selectedMonth))
       });
     }
   };
