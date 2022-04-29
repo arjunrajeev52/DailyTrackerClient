@@ -16,7 +16,7 @@ const TrackerData = {
   row: 0,
   type: true,
   apiData: [],
-  dataRefresh: [],
+  dataRefresh: true,
   showForm: false,
   showModal: false,
   searchValue: '',

@@ -19,6 +19,20 @@ const TableDetails = (props) => {
 
   };
 
+  const getTrackerData =()=>{
+    setTrackerData((e) => ({ ...e, loaderFlag: true }));
+    axios
+      .get(`${Tracker_Url.Server_url}/Posts`, {
+        params: {
+          sheet: 'Sheet1'
+        }
+      })
+      .then((readData) => {
+        readData.data.shift();
+        setTrackerData((e) => ({ ...e, apiData: readData.data,loaderFlag: false }));
+      });
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     setTrackerData((e) => ({ ...e, loaderFlag: true }));
@@ -36,9 +50,10 @@ const TableDetails = (props) => {
         dataObj
       )
       .then((response) => {
-        setTrackerData((e) => ({ ...e, dataRefresh: response, showForm: false, loaderFlag: false }));
+        setTrackerData((e) => ({ ...e, dataRefresh: !trackerData.dataRefresh, showForm: false, loaderFlag: false }));
       });
     setTrackerData((e) => ({ ...e, showForm: false }));
+    getTrackerData();
   };
 
   const handleUpdate = (e) => {
@@ -58,9 +73,10 @@ const TableDetails = (props) => {
         dataObj
       )
       .then((response) => {
-        setTrackerData((e) => ({ ...e, dataRefresh: response, showForm: false, loaderFlag: false }));
+        setTrackerData((e) => ({ ...e, dataRefresh: !trackerData.dataRefresh, showForm: false, loaderFlag: false }));
       });
     setTrackerData((e) => ({ ...e, showForm: false }));
+    getTrackerData();
   };
 
   // const deleteRow = (rowNumber)=>{
@@ -74,18 +90,9 @@ const TableDetails = (props) => {
   // };
 
   React.useEffect(() => {
-    setTrackerData((e) => ({ ...e, loaderFlag: true }));
-    axios
-      .get(`${Tracker_Url.Server_url}/Posts`, {
-        params: {
-          sheet: 'Sheet1'
-        }
-      })
-      .then((readData) => {
-        readData.data.shift();
-        setTrackerData((e) => ({ ...e, apiData: readData.data,loaderFlag: false }));
-      });
-  });
+    getTrackerData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const updateRow = (rowNumber) => {
     const updatedData = trackerData.apiData[rowNumber];

@@ -3,16 +3,9 @@ import { Statistic } from 'semantic-ui-react'
 
 const TrackerBox = ({ trackerData, setTrackerData, getResult }) => {
 
-    React.useEffect(() => {
-        let exp = 0;
-        let Inc = 0;
-        getResult(trackerData.apiData).map(d => exp += Number(d[3]))
-        getResult(trackerData.apiData).map(d => Inc += Number(d[2]))
-        setTrackerData((e) =>
-        ({
-            ...e, totalExpense: exp, totalIncome: Inc
-        }));
-    });
+    function getSum(total, num) {
+        return total + Math.round(num);
+      }
 
     return (
         <>
@@ -22,15 +15,15 @@ const TrackerBox = ({ trackerData, setTrackerData, getResult }) => {
                     <Statistic.Label>Total Request</Statistic.Label>
                 </Statistic>
                 <Statistic color='yellow'>
-                    <Statistic.Value>{trackerData.totalIncome}</Statistic.Value>
+                    <Statistic.Value>{getResult(trackerData.apiData).map(d => d[2]).reduce(getSum, 0)}</Statistic.Value>
                     <Statistic.Label>Income</Statistic.Label>
                 </Statistic>
                 <Statistic color='orange'>
-                    <Statistic.Value>{trackerData.totalExpense}</Statistic.Value>
+                    <Statistic.Value>{getResult(trackerData.apiData).map(d => d[3]).reduce(getSum, 0)}</Statistic.Value>
                     <Statistic.Label>Expense</Statistic.Label>
                 </Statistic>
                 <Statistic color='olive'>
-                    <Statistic.Value>{trackerData.totalIncome - trackerData.totalExpense}</Statistic.Value>
+                    <Statistic.Value>{getResult(trackerData.apiData).map(d => d[2]).reduce(getSum, 0) - getResult(trackerData.apiData).map(d => d[3]).reduce(getSum, 0)}</Statistic.Value>
                     <Statistic.Label>Balance</Statistic.Label>
                 </Statistic>
                 {/* <Statistic color='green'>
