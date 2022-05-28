@@ -3,10 +3,11 @@ import {BarChart} from './BarChart';
 
 const Charts =()=>{
     React.useEffect(()=>{
-        BarChart(100,150);
+        BarChart(600,1000);
     },[]);
     return (
-        <div id="chart"/>
+        // <div id="chart"/>
+        <svg viewBox='0 0 800 700'/>
     );
 };
 
