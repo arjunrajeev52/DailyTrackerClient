@@ -155,7 +155,9 @@ const TableDetails = (props) => {
 
         <Table.Body>
           {getResult(trackerData.apiData).length
-            ? getResult(trackerData.apiData).map((data, index) => {
+            ? getResult(trackerData.apiData).sort(function(a,b){
+              return new Date(b.date) - new Date(a.date);
+            }).map((data, index) => {
               return (
                 <>
                   <Table.Row>

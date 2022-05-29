@@ -81,7 +81,7 @@ function App() {
             <TopNav setTrackerData={setTrackerData} />
             <Dashboard setTrackerData={setTrackerData} trackerData={trackerData} getResult={getResult} />
             <TableDetails setTrackerData={setTrackerData} trackerData={trackerData} getResult={getResult}/>
-            <Charts />
+            <Charts trackerData={trackerData} />
           </>}
       </Container>
     </>

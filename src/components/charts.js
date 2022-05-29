@@ -1,13 +1,14 @@
 import React from 'react';
 import {BarChart} from './BarChart';
 
-const Charts =()=>{
+const Charts =({trackerData})=>{
     React.useEffect(()=>{
-        BarChart(600,1000);
-    },[]);
+        BarChart(600,1000,trackerData);
+    },[trackerData]);
     return (
-        // <div id="chart"/>
-        <svg viewBox='0 0 800 700'/>
+        <div id='container'>
+      <svg />
+    </div>
     );
 };
 
