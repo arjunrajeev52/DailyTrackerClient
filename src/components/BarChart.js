@@ -50,6 +50,13 @@ export const BarChart =(chartHeight,chartWidth,data)=>{
       .attr('y', (g) => yScale(g.expense))
       .attr('height', (g) => height - yScale(g.expense))
       .attr('width', xScale.bandwidth())
+      barGroups
+      .append('rect')
+      .attr('class', 'bar')
+      .attr('x', (g) => xScale(new Date(g.date).getDate()))
+      .attr('y', (g) => yScale(g.income))
+      .attr('height', (g) => height - yScale(g.income))
+      .attr('width', xScale.bandwidth())
 
     //   barGroups 
     //   .append('text')
