@@ -1,7 +1,7 @@
 import React from 'react';
 import { Statistic } from 'semantic-ui-react'
 
-const TrackerBox = ({ trackerData, setTrackerData, getResult }) => {
+const TrackerBox = ({ trackerData, setTrackerData, getResult,getTotalResult }) => {
 
     function getSum(total, num) {
         return total + Math.round(num);
@@ -45,19 +45,19 @@ const TrackerBox = ({ trackerData, setTrackerData, getResult }) => {
             </Statistic.Group>
             <Statistic.Group widths='four'>
                 <Statistic color='green'>
-                    <Statistic.Value>{trackerData.apiData.length}</Statistic.Value>
+                    <Statistic.Value>{getTotalResult(trackerData.apiData).length}</Statistic.Value>
                     <Statistic.Label>Total Request</Statistic.Label>
                 </Statistic>
                 <Statistic color='teal'>
-                    <Statistic.Value>{trackerData.apiData.map(d => d.income).reduce(getSum, 0)}</Statistic.Value>
+                    <Statistic.Value>{getTotalResult(trackerData.apiData).map(d => d.income).reduce(getSum, 0)}</Statistic.Value>
                     <Statistic.Label>Income</Statistic.Label>
                 </Statistic>
                 <Statistic color='violet'>
-                    <Statistic.Value>{trackerData.apiData.map(d => d.expense).reduce(getSum, 0)}</Statistic.Value>
+                    <Statistic.Value>{getTotalResult(trackerData.apiData).map(d => d.expense).reduce(getSum, 0)}</Statistic.Value>
                     <Statistic.Label>Expense</Statistic.Label>
                 </Statistic>
                 <Statistic color='olive'>
-                    <Statistic.Value>{trackerData.apiData.map(d => d.income).reduce(getSum, 0) - getResult(trackerData.apiData).map(d => d.expense).reduce(getSum, 0)}</Statistic.Value>
+                    <Statistic.Value>{getTotalResult(trackerData.apiData).map(d => d.income).reduce(getSum, 0) - getTotalResult(trackerData.apiData).map(d => d.expense).reduce(getSum, 0)}</Statistic.Value>
                     <Statistic.Label>Balance</Statistic.Label>
                 </Statistic>
                 {/* <Statistic color='green'>

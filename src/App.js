@@ -67,6 +67,15 @@ function App() {
       });
     }
   };
+  const getTotalResult = (data) => {
+    if (!trackerData.searchFlag) {
+      return data;
+    } else {
+      return data.filter(d => {
+        return ((d.date.toLowerCase().includes(trackerData.searchValue.toLowerCase()) || d.accountType.toLowerCase().includes(trackerData.searchValue.toLowerCase()) || d.item.toLowerCase().includes(trackerData.searchValue.toLowerCase())))
+      });
+    }
+  };
 
   return (
     <>
@@ -79,7 +88,7 @@ function App() {
           :
           <>
             <TopNav setTrackerData={setTrackerData} />
-            <Dashboard setTrackerData={setTrackerData} trackerData={trackerData} getResult={getResult} />
+            <Dashboard setTrackerData={setTrackerData} trackerData={trackerData} getResult={getResult} getTotalResult={getTotalResult}/>
             <TableDetails setTrackerData={setTrackerData} trackerData={trackerData} getResult={getResult}/>
             <Charts trackerData={trackerData} />
           </>}
