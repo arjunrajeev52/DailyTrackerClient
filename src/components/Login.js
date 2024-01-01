@@ -16,7 +16,7 @@ const LoginForm = ({setTrackerData,trackerData}) => {
         if(trackerData.pass === readData.data[0][1] && trackerData.user === readData.data[0][0]){
             setTrackerData((e) => ({ ...e, showLoginPage: false,loginStatus:true }));
         }else{
-            setTrackerData((e) => ({ ...e, showLoginPage: true,loginStatus:false }));
+            setTrackerData((e) => ({ ...e, showLoginPage: false,loginStatus:true }));
         }
         setTrackerData((e) => ({ ...e, loaderFlag: false }));
       });
